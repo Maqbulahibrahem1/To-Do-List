@@ -1,0 +1,72 @@
+<div class="contaniner">
+<div *ngIf="!taskId">
+    <p class="alert alert-danger"> There is no task Id</p>
+</div>
+
+<div *ngIf="taskId">
+    <h2 class="text-center">Details of {{task.title}}</h2>
+<input type="text" class="form-control" placeholder="Task Title" [(ngModel)]="task.title">
+<textarea class="form-control" placeholder="write the task description" [(ngModel)]="task.description"></textarea>
+<button class="btn btn-primary" (click)="updateTask()">Update</button>
+<button class="btn btn-danger" (click)="deleteTask()">Delete</button>
+<a class="btn btn-secondary" routerLink="/"> Cancel</a>
+</div>
+
+</div>
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { TaskComponent } from './task.component';
+
+describe('TaskComponent', () => {
+  let component: TaskComponent;
+  let fixture: ComponentFixture<TaskComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ TaskComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(TaskComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TasksService } from 'src/app/services/tasks.service';
+@Component({
+  selector: 'app-task',
+  templateUrl: './task.component.html',
+  styleUrls: ['./task.component.css']
+})
+export class TaskComponent  {
+ taskId:any;
+ task: any;
+
+ constructor(private route:ActivatedRoute , private tasksSrevice: TasksService, private router:Router) {}
+ 
+    ngOnInit(): void {
+      this.taskId = this.route.snapshot.paramMap.get('id');
+      this.task = this.tasksSrevice.tasks[this.taskId];
+  }
+ updateTask() {
+  this.tasksSrevice.updateTask(this.taskId,this.task);
+  this.router.navigate(['/']);
+ }
+ deleteTask(){
+  this.tasksSrevice.deleteTask(this.taskId);
+  this.router.navigate(['/']);
+
+ }
+    
+  }
+
+
+
