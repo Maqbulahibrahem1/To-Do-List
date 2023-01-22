@@ -1,0 +1,77 @@
+.banner
+{
+    background-image: url(img/bannerimg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 600px;
+    background-position: center top;
+}
+.text-center
+{
+    background-color: grey;
+    color: white;
+    padding: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+<div class="banner">
+<div class="container">
+  <h2 class="text-center">Add New To Do list </h2>
+    <input #taskTitle type="text" class="form-control" placeholder="Write To Do List Here">
+    <textarea #taskDescription class="form-control" placeholder="write the description"></textarea>
+    <br>
+    <button class="btn btn-success" (click)="saveTask(taskTitle, taskDescription)">Save</button>
+    <a class="btn btn-primary" routterLink="/">Cancel</a>
+</div>
+</div>
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { AddTaskComponent } from './add-task.component';
+
+describe('AddTaskComponent', () => {
+  let component: AddTaskComponent;
+  let fixture: ComponentFixture<AddTaskComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ AddTaskComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(AddTaskComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { TasksService } from 'src/app/services/tasks.service';
+@Component({
+  selector: 'app-add-task',
+  templateUrl: './add-task.component.html',
+  styleUrls: ['./add-task.component.css']
+})
+export class AddTaskComponent {
+
+  constructor(private tasksService: TasksService, private router: Router, private title: Title) {
+    this.title.setTitle('Adding a new list');
+   }
+
+  ngOnInit(): void {
+
+  }
+   saveTask(title:any, description:any){
+    this.tasksService.saveTask(title.value, description.value);
+    this.router.navigate(['/']);
+   }
+   
+}
+
