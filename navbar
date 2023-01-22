@@ -1,0 +1,68 @@
+.navbar-light .navbar-nav .nav-link .nav-link.active-link
+{
+    color: var(--primary-color);
+    font-weight: bold;
+}
+.navbar-light .navbar-nav .nav-link.active-link
+{
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="">TO DO LIST</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink=""  routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}" >Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink='task' routerLinkActive="active-link">Menu</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink='add-task' routerLinkActive="active-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink='task/:id' routerLinkActive="active-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { NavbarComponent } from './navbar.component';
+
+describe('NavbarComponent', () => {
+  let component: NavbarComponent;
+  let fixture: ComponentFixture<NavbarComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ NavbarComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(NavbarComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
+})
+export class NavbarComponent {
+
+}
